@@ -101,12 +101,17 @@ ctx.request.href;
   when `app.proxy` is __true__, otherwise `Host` is used.
 
   If host is IPv6, Koa delegates parsing to
-  [WHATWG URL API](https://nodejs.org/dist/latest-v8.x/docs/api/url.html#url_the_whatwg_url_api),
+  [WHATWG URL API](https://nodejs.org/api/url.html#the-whatwg-url-api),
   *Note* This may impact performance.
 
 ### request.URL
 
-  Get WHATWG parsed URL object.
+  Get WHATWG parsed URL object based on `request.originalUrl`.
+
+  Absolute-form HTTP(S) request targets are parsed directly, so `request.URL.host`
+  can differ from `request.host`, which follows the header rules described above.
+  For other targets, the URL is constructed from `request.protocol`, `request.host`,
+  and `request.originalUrl`.
 
 ### request.type
 
